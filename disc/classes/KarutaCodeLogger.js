@@ -62,6 +62,7 @@ class KarutaCodeLogger {
         let cardData = {}
         let hasWishlist = this.hasWishlistInLine(line);
         let split = line.split("·");
+
         if (hasWishlist) {
             split.shift();
         }
