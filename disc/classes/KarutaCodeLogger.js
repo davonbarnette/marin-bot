@@ -36,9 +36,9 @@ class KarutaCodeLogger {
     }
 
     handleCardDataEmbed(embed) {
-        let line = embed.description.split("\n")[0]
+        let line = embed.description.split("\n")[0];
         if (line.includes("Owned by")) {
-            line = embed.description.split("\n")[2]
+            line = embed.description.split("\n")[2];
         }
         return [this.readLineForCardData(line)];
     }
