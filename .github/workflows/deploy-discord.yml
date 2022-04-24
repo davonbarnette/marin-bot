@@ -34,7 +34,7 @@ jobs:
       working-directory: ./disc
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+        ECR_REPOSITORY: ${{ secrets.DISCORD_REPO_NAME }}
         IMAGE_TAG: latest
       run: |
         # Build a docker container and push it to ECR 
