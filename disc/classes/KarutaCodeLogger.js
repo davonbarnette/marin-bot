@@ -44,7 +44,7 @@ class KarutaCodeLogger {
     }
 
     handleCardCollectionEmbed(embed) {
-        let split = embed.description.split("\n").slice(2)
+        let split = embed.description.split("\n").slice(2);
         if (split[0] === "The list is empty.") {
             return undefined;
         } else {
