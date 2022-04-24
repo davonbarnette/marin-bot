@@ -1,0 +1,58 @@
+@import 'colors';
+@import 'keyframes';
+@import 'mixins';
+@import 'constants';
+
+
+
+
+
+@mixin scale-max-content-width(){
+  width:100%;
+  max-width: 1400px;
+}
+
+@mixin number-font(){
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+$highlighted-text: $primary-blue;
+$highlighted-background: rgba(86, 183, 180, 0.52);
+
+$error-color: $orange;
+
+$primary-button-bg-color: $primary-blue;
+$primary-button-text-color: white;
+
+@mixin box-shadow-1(){
+  @include box-shadow(1px 1px 10px 0 rgba(0,0,0,0.08));
+  z-index: $z-index-raised;
+}
+
+@mixin box-shadow-2(){
+  @include box-shadow((0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08)));
+  z-index: $z-index-raised;
+}
+
+@mixin box-shadow-3(){
+  @include box-shadow(0 2px 4px 0 rgba(14, 30, 37, .24))
+}
+
+@mixin box-shadow-4(){
+  @include box-shadow((0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .03)));
+  z-index: $z-index-raised;
+}
+
+@mixin box-shadow-5(){
+  @include box-shadow(1px 1px 0 0 rgba(168,171,186,0.5));
+}
+
+@mixin border-and-box(){
+  @include box-shadow-5;
+  border: 1px solid #a8abba !important;
+}
+
+.hidden { 
+  display:none; 
+}
+

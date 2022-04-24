@@ -1,0 +1,14 @@
+version: '3.1'
+
+# DEVELOPMENT ONLY: This file is not used in deployment for the Strapi API or any of the associated databases.
+# https://www.docker.com/products/docker-desktop to get the latest docker for Windows and Mac
+
+services:
+  ftp_strapi:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=Password1
+      - POSTGRES_DB=ftp_strapi_pg
+    ports:
+      - "5432:5432"

@@ -1,0 +1,14 @@
+@import '../../../scss/config';
+
+.default-loader {
+  @include flex(column, center, center);
+  @include max-size;
+  .loading-text {
+    @include font(14px, 600, 0.05em, white);
+    margin-top:12px;
+    & span {
+      margin-right:9px;
+      color:$light-blue;
+    }
+  }
+}

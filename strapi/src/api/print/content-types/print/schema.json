@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prints",
+  "info": {
+    "singularName": "print",
+    "pluralName": "prints",
+    "displayName": "Print",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "dropTime": {
+      "type": "datetime"
+    },
+    "condition": {
+      "type": "enumeration",
+      "enum": [
+        "mint",
+        "excellent",
+        "good",
+        "poor",
+        "damaged"
+      ]
+    },
+    "anime": {
+      "type": "string"
+    },
+    "loggedTime": {
+      "type": "datetime"
+    },
+    "edition": {
+      "type": "integer"
+    },
+    "printNumber": {
+      "type": "biginteger"
+    },
+    "code": {
+      "type": "uid",
+      "required": true
+    }
+  }
+}

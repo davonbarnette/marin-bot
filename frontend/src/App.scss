@@ -1,0 +1,17 @@
+@import "./scss/config";
+
+.App {
+  min-height:100vh;
+  text-align: center;
+}
+
+.title-logo {
+  @include font(20px, 600, 0, white);
+  @include flex(row, flex-start, center);
+
+  .logo {
+    height:35px;
+    margin-right:12px;
+  }
+
+}
