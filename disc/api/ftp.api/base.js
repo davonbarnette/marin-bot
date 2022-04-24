@@ -2,7 +2,7 @@ const axios = require("axios")
 
 class StrapiApi {
     axiosInstance = axios.create({
-        baseURL: "http://localhost:1337/api"
+        baseURL: `${process.env.API_HOST}/api`
     })
 
     constructor() {
