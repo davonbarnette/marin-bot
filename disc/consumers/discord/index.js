@@ -44,6 +44,7 @@ class DiscordConsumer extends BaseConsumer {
             let karutaCodeLogger = new KarutaCodeLogger(message);
             await karutaCodeLogger.saveCards();
         }
+
     }
 
     onInteractionCreate = async (interaction) => {
