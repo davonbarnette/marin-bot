@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sale_listings",
+  "info": {
+    "singularName": "sale-listing",
+    "pluralName": "sale-listings",
+    "displayName": "Sale Listing"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "listingDiscordUserId": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "gem",
+        "ticket",
+        "droplet",
+        "gold"
+      ]
+    },
+    "quantity": {
+      "type": "biginteger"
+    },
+    "soldAt": {
+      "type": "datetime"
+    },
+    "removedAt": {
+      "type": "datetime"
+    },
+    "print": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::print.print"
+    }
+  }
+}

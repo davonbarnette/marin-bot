@@ -43,6 +43,28 @@
     "code": {
       "type": "uid",
       "required": true
+    },
+    "grabbedAfter": {
+      "type": "decimal"
+    },
+    "droppedOn": {
+      "type": "datetime"
+    },
+    "dropCondition": {
+      "type": "enumeration",
+      "enum": [
+        "mint",
+        "excellent",
+        "good",
+        "poor",
+        "damaged"
+      ]
+    },
+    "ownedBy": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "text"
     }
   }
 }

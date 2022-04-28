@@ -1,21 +1,24 @@
-import PrintsFilter from "../../components/project/Prints.filters/Prints.filters";
-import PrintsTable from "../../components/project/Prints.table/Prints.table";
-import {usePrints} from "../../api/Prints/Prints.hooks";
+
 import LoaderDefault from "../../components/common/Loader.default/Loader.default";
 import {Search} from "tabler-icons-react";
 import {Box, Divider, Pagination} from "@mantine/core";
 import {useState} from "react";
-import PrintsFiltersManager from "../../components/project/Prints.filters/Prints.filters.manager";
+import {useSaleListings} from "../../api/Sale.listings/Sale.listings.hooks";
+import SaleListingsFiltersManager from "../../components/project/Sale.listings.filters/Sale.listings.filters.manager";
+import SaleListingsView from "../../components/project/Sales.listings.view/Sale.listings.view";
+import SaleListingsFilter from "../../components/project/Sale.listings.filters/Sale.listings.filters";
 
-function PrintsSearch() {
+
+function SaleListingsSearch() {
     const [query, setQuery] = useState<any>(getLocalStorageQuery());
     const [page, setPage] = useState(1);
-    const {isLoading, data: prints} = usePrints({
+    const {isLoading, data: saleListings} = useSaleListings({
         filters: {
             ...query,
         },
+        populate: ["print"],
         sort: {
-            printNumber: "asc"
+            createdAt: "asc"
         },
         pagination: {
             page,
@@ -24,7 +27,7 @@ function PrintsSearch() {
     })
 
     function onSubmitQuery(values: any) {
-        let serializedQuery = PrintsFiltersManager
+        let serializedQuery = SaleListingsFiltersManager
             .setDeserializedValues(values)
             .serializeQuery()
             .setQueryToLocalStorage()
@@ -34,15 +37,15 @@ function PrintsSearch() {
     }
 
     function getLocalStorageQuery() {
-        return PrintsFiltersManager
+        return SaleListingsFiltersManager
             .getQueryFromLocalStorage()
             .getQsMappedValues();
     }
 
-    function getPrintsFiltersInitialValues() {
-        return PrintsFiltersManager
+    function getSaleListingsFiltersInitialValues() {
+        return SaleListingsFiltersManager
             .setSerializedValues(
-                PrintsFiltersManager
+                SaleListingsFiltersManager
                     .getQueryFromLocalStorage()
                     .getValues()
             )
@@ -55,7 +58,7 @@ function PrintsSearch() {
     }
 
     function renderList() {
-        if (isLoading || !prints) {
+        if (isLoading || !saleListings) {
             return <LoaderDefault text="Loading..."/>
         } else {
             return (
@@ -71,11 +74,11 @@ function PrintsSearch() {
                             </>
                         }
                     />
-                    <PrintsTable prints={prints.data}/>
+                    <SaleListingsView saleListings={saleListings.data}/>
                     <Pagination page={page}
                                 style={{marginTop: 12}}
                                 onChange={onPagination}
-                                total={prints.meta.pagination.pageCount}/>
+                                total={saleListings.meta.pagination.pageCount}/>
                 </>
             )
         }
@@ -83,10 +86,10 @@ function PrintsSearch() {
 
     return (
         <div>
-            <PrintsFilter onSubmitQuery={onSubmitQuery} initialValues={getPrintsFiltersInitialValues()}/>
+            <SaleListingsFilter onSubmitQuery={onSubmitQuery} initialValues={getSaleListingsFiltersInitialValues()}/>
             {renderList()}
         </div>
     )
 }
 
-export default PrintsSearch;
+export default SaleListingsSearch;

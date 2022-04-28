@@ -13,6 +13,24 @@ class PrintsApiSingleton extends StrapiApi {
             // to the UID not allowing entries for the same card code.
             if (e.response.data.error.name !== "ValidationError"){
                 Logger.error("Could not create prints", e.response.data.error);
+            } else {
+                Logger.warn("Already synced card: ", grabData.code);
+            }
+            return undefined;
+        }
+    }
+
+    async upsertPrint(grabData) {
+        try {
+            let res = await this.axiosInstance.patch("/prints", {data: grabData});
+            return res.data;
+        } catch (e) {
+            // Remove logging if it's a validation error, because it's most likely due
+            // to the UID not allowing entries for the same card code.
+            if (e.response.data.error.name !== "ValidationError"){
+                Logger.error("Could not create prints", e.response.data.error);
+            } else {
+                Logger.warn("Already synced card: ", grabData.code);
             }
             return undefined;
         }

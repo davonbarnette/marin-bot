@@ -1,28 +1,46 @@
 import React from 'react';
-import {GitPullRequest, AlertCircle, Messages, Database} from 'tabler-icons-react';
+import {PlayCard, ReportMoney, Gavel, Database} from 'tabler-icons-react';
 import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
+import {Link, useMatch, useResolvedPath} from "react-router-dom";
 
 interface MainLinkProps {
     icon: React.ReactNode;
     color: string;
     label: string;
+    link: string,
 }
 
-function MainLink({icon, color, label}: MainLinkProps) {
-    return (
-        <UnstyledButton
-            sx={(theme) => ({
-                display: 'block',
-                width: '100%',
-                padding: theme.spacing.xs,
-                borderRadius: theme.radius.sm,
-                color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+function MainLink({icon, color, label, link}: MainLinkProps) {
+    let resolved = useResolvedPath(link);
+    let match = useMatch({path: resolved.pathname, end: true});
 
-                '&:hover': {
-                    backgroundColor:
-                        theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-                },
-            })}
+    function getStyles(theme:any) {
+        let curTheme:any = {
+            display: 'block',
+            padding: theme.spacing.xs,
+            borderRadius: theme.radius.sm,
+            color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+            marginBottom:6,
+            '&:last-of-type': {
+                marginBottom: 0,
+            },
+            '&:hover': {
+                backgroundColor:
+                    theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+            },
+        }
+        if (match){
+            curTheme.backgroundColor = theme.colors.dark[6]
+        }
+        return curTheme;
+    }
+
+    return (
+
+        <UnstyledButton
+            component={Link}
+            to={link}
+            sx={getStyles}
         >
             <Group>
                 <ThemeIcon color={color} variant="light">
@@ -32,17 +50,17 @@ function MainLink({icon, color, label}: MainLinkProps) {
                 <Text size="sm">{label}</Text>
             </Group>
         </UnstyledButton>
+
     );
 }
 
 const data = [
-  { icon: <GitPullRequest size={16} />, color: 'blue', label: 'Pull Requests' },
-  { icon: <AlertCircle size={16} />, color: 'teal', label: 'Open Issues' },
-  { icon: <Messages size={16} />, color: 'violet', label: 'Discussions' },
-  { icon: <Database size={16} />, color: 'grape', label: 'Databases' },
+    {icon: <PlayCard size={16}/>, color: 'blue', label: 'Prints', link: "/prints"},
+    {icon: <ReportMoney size={16}/>, color: 'teal', label: 'Sale Listings', link: "/sale-listings"},
+    {icon: <Gavel size={16}/>, color: 'violet', label: 'Auction Listings', link: "/auction-listings"},
 ];
 
 export function MainLinks() {
-  const links = data.map((link) => <MainLink {...link} key={link.label} />);
-  return <div>{links}</div>;
+    const links = data.map((link) => <MainLink {...link} key={link.label}/>);
+    return <div>{links}</div>;
 }

@@ -1,0 +1,66 @@
+@import '../../../scss/config';
+
+.sale-listing-card {
+
+  //background: white;
+  @include flex(row, flex-start, flex-start);
+  height:250px;
+
+
+  .image {
+    height:100%;
+    position: relative;
+
+    & > img {
+      height:100%;
+
+    }
+  }
+
+  .copy-button {
+    margin-left: 3px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .card-details {
+    @include pad-box(12px);
+    @include flex(column, flex-start, flex-start);
+    width: 100%;
+
+    .header {
+      @include flex(row, space-between, center);
+      width: 100%;
+
+      .name {
+        @include flex(row, flex-start, center);
+      }
+
+      .cost {
+        @include flex(row, flex-end, center);
+
+        & > img {
+          width: 18px;
+          margin-left: 6px;
+        }
+      }
+    }
+
+    &-text {
+      @include flex(row, flex-start, center);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 14px;
+      margin-bottom: 3px;
+
+      & > code {
+        margin-right:9px;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+}

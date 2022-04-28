@@ -6,7 +6,7 @@ interface Props {
     prints: IStrapiEntity<IPrint>[]
 }
 
-function PrintsList({prints}: Props) {
+function PrintsTable({prints}: Props) {
 
     const rows = prints.map((print) => {
         const { code, condition, name, anime, edition, printNumber } = print.attributes;
@@ -40,4 +40,4 @@ function PrintsList({prints}: Props) {
     )
 }
 
-export default PrintsList;
+export default PrintsTable;

@@ -1,7 +1,10 @@
 const discordIntents = require("./discord.intents");
 const Logger = require("../../logger");
-const KarutaCodeLogger = require("../../classes/KarutaCodeLogger");
+const KarutaCards = require("../../karuta/karuta.card");
+const KarutaCommand = require("../../karuta/karuta.command");
 const PrintsApi = require("../../api/ftp.api/prints");
+const CommandRoutes = require("../../karuta/command.routes");
+const {KARUTA_EMBED_TITLES} = require("../../karuta/karuta.types");
 const {BaseConsumer, CONSUMER_TYPES} = require("../base");
 const {Client} = require("discord.js");
 const {DISC_TOKEN, PREFIX, KARUTA_BOT_ID} = process.env;
@@ -40,18 +43,24 @@ class DiscordConsumer extends BaseConsumer {
     }
 
     onMessageCreate = async (message) => {
-        if (message.author.bot && message.author.id === KARUTA_BOT_ID) {
-            let karutaCodeLogger = new KarutaCodeLogger(message);
-            await karutaCodeLogger.saveCards();
-        }
 
+        if (message.author.bot && message.author.id === KARUTA_BOT_ID) {
+            let commandHandler = new KarutaCommand(message);
+            let execute = CommandRoutes[commandHandler.command];
+            if (execute){
+                await execute(message);
+            }
+        }
     }
 
     onInteractionCreate = async (interaction) => {
+        if (interaction.channelId === "968338765305221140"){
+
+        }
         if (interaction.isCommand()) {
             let command = this.client.commands.get(interaction.commandName);
             if (command) {
-                await command.execute(interaction, this.client);
+                await command.execute(interaction, this.client, interaction.user.id);
             }
         }
     }

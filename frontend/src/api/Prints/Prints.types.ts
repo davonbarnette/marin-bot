@@ -5,6 +5,11 @@ export interface IPrint {
     edition: number,
     printNumber:number,
     code:string,
+    imageUrl:string,
+    loggedTime:string,
+    grabbedAfter:string,
+    droppedOn:string,
+    dropCondition:string,
 }
 
 export enum EConditions {
