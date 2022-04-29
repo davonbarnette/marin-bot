@@ -20,12 +20,17 @@ function AppHeader() {
                 </div>
                 <Group spacing="xs">
                     <Tooltip label="Marin Server" withArrow>
-                        <ActionIcon size="lg" color="blue" variant="default"><Discord/></ActionIcon>
+                        <ActionIcon size="lg" color="blue" variant="default">
+                            <Discord/>
+                        </ActionIcon>
                     </Tooltip>
                     <Tooltip label="Source Code" withArrow>
-                        <ActionIcon size="lg" color="gray" variant="default"><GitHub/></ActionIcon>
+                        <ActionIcon size="lg" color="gray"
+                                    onClick={() => window.open("https://github.com/hitagidayo/marin-bot", "_blank")}
+                                    variant="default">
+                            <GitHub/>
+                        </ActionIcon>
                     </Tooltip>
-
                 </Group>
             </Group>
         </Header>
