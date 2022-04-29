@@ -6,8 +6,21 @@
 }
 
 .title-logo {
-  @include font(20px, 600, 0, white);
-  @include flex(row, flex-start, center);
+  @include font(16px, 600, 0, white);
+  @include flex(column, flex-start, center);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .jp {
+    color: #FF7777;
+  }
+  .marin-bot {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+  }
 
   .logo {
     height:35px;

@@ -26,6 +26,18 @@ root.render(
                         "#C14750",
                         "#C22E39",
                         "#A1373F",
+                    ],
+                    "marin-pink": [
+                        "#FFFFFF",
+                        "#FFFFFF",
+                        "#FEF5F5",
+                        "#FFC7C7",
+                        "#F5A4A4",
+                        "#E58A8A",
+                        "#D37878",
+                        "#C06969",
+                        "#AE5E5E",
+                        "#985959"
                     ]
                 },
                 primaryColor: "brand",
