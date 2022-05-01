@@ -13,9 +13,9 @@ function AppNavbar({ opened }:Props) {
             <Navbar.Section grow mt="xs">
                 <MainLinks/>
             </Navbar.Section>
-            <Navbar.Section>
-                <UserNavbar/>
-            </Navbar.Section>
+            {/*<Navbar.Section>*/}
+            {/*    <UserNavbar/>*/}
+            {/*</Navbar.Section>*/}
         </Navbar>
     )
 }
