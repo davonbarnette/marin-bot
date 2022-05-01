@@ -5,6 +5,7 @@ import AuthLogin from "../components/common/Auth.login/Auth.login";
 import Auth from "../containers/Auth/Auth";
 import SaleListingsSearch from "../containers/Sale.listings.search/Sale.listings.search";
 import LandingMain from "../containers/Landing.main/Landing.main";
+import AuctionListingsSearch from "../containers/Auction.listings.search/Auction.listings.search";
 
 function AppRouting() {
 
@@ -21,7 +22,7 @@ function AppRouting() {
                 <Route path="sale-listings" element={<SaleListingsSearch/>}>
 
                 </Route>
-                <Route path="auction-listings" element={<PrintsSearch/>}>
+                <Route path="auction-listings" element={<AuctionListingsSearch/>}>
 
                 </Route>
             </Route>
