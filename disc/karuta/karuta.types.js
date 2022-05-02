@@ -3,12 +3,16 @@ const Utils = require("../utils/utils");
 const KARUTA_EMBED_TITLES = {
     CARD_DETAILS: "Card Details",
     CARD_COLLECTION: "Card Collection",
+    DYE_DETAILS: "Dye Details",
+    DYE_COLLECTION: "Dye Collection"
 }
 
 const KARUTA_COMMANDS = {
     CARD_INFO: "cardInfo",
     CARD_VIEW: "cardView",
     COLLECTION: "collection",
+    DYE_INFO: "dyeInfo",
+    DYE_COLLECTION: "dyeCollection",
 }
 
 const conditionsByNumber = [
@@ -67,10 +71,32 @@ const lineFieldsByIndex = [
     },
 ]
 
+const dyeLineFieldsByIndex = [
+    {
+        name: "code",
+        parser: (raw) => {
+            return raw.split("\`")[1].trim();
+        }
+    },
+    {
+        name: "charges",
+        parser: (raw) => {
+            return raw.split("\`")[1].trim();
+        }
+    },
+    {
+        name: "name",
+        parser: (raw) => {
+            return raw.split("**")[1].trim();
+        }
+    },
+]
+
 module.exports = {
     KARUTA_COMMANDS,
     KARUTA_EMBED_TITLES,
     conditionsByNumber,
     lineFieldsByIndex,
+    dyeLineFieldsByIndex,
 }
 

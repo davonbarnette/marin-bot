@@ -17,8 +17,10 @@ const rest = new REST({version: '9'}).setToken(token);
     let values = [...commandList.values()];
     for (let i = 0; i < values.length; i++) {
         const command = values[i];
-        let push = await command.getSlashCommand();
-        commands.push(push);
+        if (!command.disabled) {
+            let slashCommand = await command.getSlashCommand();
+            commands.push(slashCommand);
+        }
     }
 
     try {

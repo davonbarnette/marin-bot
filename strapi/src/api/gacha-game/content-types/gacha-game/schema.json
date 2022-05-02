@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gacha_games",
+  "info": {
+    "singularName": "gacha-game",
+    "pluralName": "gacha-games",
+    "displayName": "Gacha Game",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "ticket",
+        "gem",
+        "droplet",
+        "gold"
+      ]
+    },
+    "quantity": {
+      "type": "biginteger"
+    }
+  }
+}

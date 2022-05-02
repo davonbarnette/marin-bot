@@ -26,6 +26,7 @@ class DiscordConsumer extends BaseConsumer {
         this.client.on(DISCORD_EVENTS.WARN, this.onWarn);
         this.client.on(DISCORD_EVENTS.ERROR, this.onError);
         this.client.on(DISCORD_EVENTS.MESSAGE_CREATE, this.onMessageCreate);
+        this.client.on(DISCORD_EVENTS.MESSAGE_UPDATE, this.onMessageUpdate);
         this.client.on(DISCORD_EVENTS.INTERACTION_CREATE, this.onInteractionCreate);
     }
 
@@ -42,21 +43,28 @@ class DiscordConsumer extends BaseConsumer {
         Logger.error(err);
     }
 
+    onMessageUpdate = async (message, newMessage) => {
+        if (newMessage.author.bot && newMessage.author.id === KARUTA_BOT_ID){
+            let commandHandler = new KarutaCommand(newMessage);
+            let execute = CommandRoutes[commandHandler.command];
+            if (execute){
+                await execute(newMessage, "update");
+            }
+        }
+    }
+
     onMessageCreate = async (message) => {
 
         if (message.author.bot && message.author.id === KARUTA_BOT_ID) {
             let commandHandler = new KarutaCommand(message);
             let execute = CommandRoutes[commandHandler.command];
             if (execute){
-                await execute(message);
+                await execute(message, "create");
             }
         }
     }
 
     onInteractionCreate = async (interaction) => {
-        if (interaction.channelId === "968338765305221140"){
-
-        }
         if (interaction.isCommand()) {
             let command = this.client.commands.get(interaction.commandName);
             if (command) {

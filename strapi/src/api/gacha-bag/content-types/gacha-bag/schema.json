@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gacha_bags",
+  "info": {
+    "singularName": "gacha-bag",
+    "pluralName": "gacha-bags",
+    "displayName": "Gacha Bag"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "uid": {
+      "type": "uid"
+    },
+    "prints": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::print.print"
+    },
+    "gem": {
+      "type": "biginteger"
+    },
+    "ticket": {
+      "type": "biginteger"
+    },
+    "gold": {
+      "type": "biginteger"
+    },
+    "droplet": {
+      "type": "biginteger"
+    }
+  }
+}
