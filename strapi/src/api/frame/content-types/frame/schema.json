@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "frames",
+  "info": {
+    "singularName": "frame",
+    "pluralName": "frames",
+    "displayName": "Frame"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "special",
+        "carousel",
+        "bit",
+        "event"
+      ]
+    }
+  }
+}

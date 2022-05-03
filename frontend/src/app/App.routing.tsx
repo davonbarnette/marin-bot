@@ -6,6 +6,8 @@ import Auth from "../containers/Auth/Auth";
 import SaleListingsSearch from "../containers/Sale.listings.search/Sale.listings.search";
 import LandingMain from "../containers/Landing.main/Landing.main";
 import AuctionListingsSearch from "../containers/Auction.listings.search/Auction.listings.search";
+import SheetStats from "../containers/Sheet.stats/Sheet.stats";
+import {Error404} from "../components/common/Error.404/Error.404";
 
 function AppRouting() {
 
@@ -25,6 +27,8 @@ function AppRouting() {
                 <Route path="auction-listings" element={<AuctionListingsSearch/>}>
 
                 </Route>
+                <Route path="collection-stats" element={<SheetStats/>}/>
+                <Route path="*" element={<Error404/>}/>
             </Route>
         </Routes>
     )

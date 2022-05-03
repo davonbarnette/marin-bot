@@ -17,12 +17,6 @@
     }
   }
 
-  .copy-button {
-    margin-left: 3px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
 
   .card-details {
     @include pad-box(12px);

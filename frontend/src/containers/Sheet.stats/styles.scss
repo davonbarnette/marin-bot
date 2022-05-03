@@ -1,0 +1,17 @@
+@import "../../scss/config";
+
+.sheet-stats {
+  .mantine-Accordion-content {
+    padding-left: 0;
+  }
+
+  .mantine-Accordion-contentInner {
+    padding: 0;
+  }
+
+  .mantine-Accordion-itemOpened {
+    .mantine-Accordion-itemTitle {
+      margin-bottom: 12px !important;
+    }
+  }
+}

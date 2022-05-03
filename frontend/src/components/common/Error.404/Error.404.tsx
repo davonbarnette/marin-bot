@@ -63,7 +63,7 @@ export function Error404() {
                 <div className={classes.content}>
                     <Title className={classes.title}>Nothing to see here</Title>
                     <Text color="dimmed" size="lg" align="center" className={classes.description}>
-                        Page you are trying to open does not exist. You may have mistyped the address, or the
+                        The page you are trying to open does not exist. You may have mistyped the address, or the
                         page has been moved to another URL. If you think this is an error contact support.
                     </Text>
                     <Group position="center">

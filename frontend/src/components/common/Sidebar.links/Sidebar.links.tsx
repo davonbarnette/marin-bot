@@ -1,5 +1,5 @@
 import React from 'react';
-import {PlayCard, ReportMoney, Gavel, Database} from 'tabler-icons-react';
+import {PlayCard, ReportMoney, Gavel, Database, FileSpreadsheet} from 'tabler-icons-react';
 import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
 import {Link, useMatch, useResolvedPath} from "react-router-dom";
 
@@ -58,6 +58,8 @@ const data = [
     {icon: <PlayCard size={16}/>, color: 'blue', label: 'Prints', link: "/prints"},
     {icon: <ReportMoney size={16}/>, color: 'teal', label: 'Sale Listings', link: "/sale-listings"},
     {icon: <Gavel size={16}/>, color: 'violet', label: 'Auction Listings', link: "/auction-listings"},
+    {icon: <FileSpreadsheet size={16}/>, color: 'violet', label: 'Collection Stats', link: "/collection-stats"},
+
 ];
 
 export function MainLinks() {
