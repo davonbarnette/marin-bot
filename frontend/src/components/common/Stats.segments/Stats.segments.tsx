@@ -54,7 +54,6 @@ export function StatsSegments({total, data}: StatsSegmentsProps) {
             <Text transform="uppercase" size="xs" color="dimmed" weight={700}>
                 {stat.label}
             </Text>
-
             <Group position="apart" align="flex-end" spacing={0}>
                 <Text weight={700}>{stat.count}</Text>
                 <Text color={stat.color} weight={700} size="sm" className={classes.statCount}>

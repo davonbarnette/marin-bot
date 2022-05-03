@@ -1,6 +1,6 @@
 import {StatsGrid} from "../../common/Stats.grid/Stats.grid";
 import {ISheetRow} from "../../../containers/Sheet.stats/Sheet.stats.types";
-import {Flame, PlayCard} from "tabler-icons-react";
+import {Contrast2, Flame, Frame, PlayCard} from "tabler-icons-react";
 
 interface Props {
     cards: ISheetRow[]
@@ -22,8 +22,8 @@ function CollectionStats({ cards }:Props){
         return [
             {title: "Cards", Icon: PlayCard, value: cards.length},
             {title: "Burn Value", Icon: Flame, value: stats.burnValue},
-            {title: "Morphed", Icon: Flame, value: stats.morphs},
-            {title: "Framed", Icon: Flame, value: stats.frames},
+            {title: "Morphed", Icon: Contrast2, value: stats.morphs},
+            {title: "Framed", Icon: Frame, value: stats.frames},
         ] as any;
     }
 

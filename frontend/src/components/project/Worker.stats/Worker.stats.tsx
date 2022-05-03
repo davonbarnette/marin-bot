@@ -40,7 +40,6 @@ function WorkerStats({cards}: Props) {
 
     function renderWorkerGrid() {
         let stats = getWorkerStatistics();
-        console.log("stats", stats);
         return Object.keys(stats).map((stat) => {
             let data:any = [];
             Object.keys(stats[stat]).map((workerStat, index) => {
