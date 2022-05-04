@@ -84,7 +84,6 @@ export function transformHeader(header:string, index:number){
 }
 
 export function transform(value:any, header:string){
-
     if (CSV_HEADERS_BOOLEANS.indexOf(header)!== -1){
         return value.toLowerCase() === "yes";
     } else if (CSV_HEADERS_NUMBERS.indexOf(header)!== -1){

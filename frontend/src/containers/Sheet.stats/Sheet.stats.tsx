@@ -36,13 +36,6 @@ function SheetStats() {
     } else if (!cardData) {
         return <DropzoneButton onDrop={onDrop}/>;
     } else {
-        let ratingToNumber = Object.keys(EWorkerStat).reverse().map(key => key);
-        let filteredCardData = cardData.filter((card: ISheetRow) => {
-            let pur = ratingToNumber.indexOf(card.workerPurity);
-            let quick = ratingToNumber.indexOf(card.workerQuickness);
-            let tough = ratingToNumber.indexOf(card.workerToughness);
-            return pur > 3 && quick > 3 && tough < 3;
-        })
 
         return (
             <Stack className='sheet-stats'>
@@ -52,7 +45,7 @@ function SheetStats() {
                         <WorkerStats cards={cardData}/>
                     </Tabs.Tab>
                     <Tabs.Tab label="Worker Query" icon={<ChartArcs size={14}/>}>
-                        <WorkerStatsTable cards={filteredCardData}/>
+                        <WorkerStatsTable cards={cardData}/>
                     </Tabs.Tab>
                 </Tabs>
             </Stack>
