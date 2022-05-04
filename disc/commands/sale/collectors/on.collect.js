@@ -16,11 +16,8 @@ async function onCollect(
         quantity: saleHelper.saleOptionsHandler.quantity,
         print: printId,
     }
-    console.log('data', data);
-
 
     let listing = await SaleListingsApi.createSaleListing(data)
-    console.log('listing', listing)
 
     if (listing) {
         await parentInteraction.editReply({

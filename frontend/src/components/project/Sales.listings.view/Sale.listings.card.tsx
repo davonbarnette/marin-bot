@@ -53,7 +53,7 @@ function SaleListingsCard({saleListing, print}: Props) {
 
                     </div>
                     <div className="cost">
-                        <Text color="white">{NumberUtils.numberWithCommas(quantity.toString())}</Text>
+                        <Text color="white">{NumberUtils.numberWithCommas(quantity)}</Text>
                         <img alt={currency} src={CURRENCY_TO_EMOTE[currency]}/>
                     </div>
                 </div>

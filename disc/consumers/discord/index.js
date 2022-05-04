@@ -44,11 +44,19 @@ class DiscordConsumer extends BaseConsumer {
     }
 
     onMessageUpdate = async (message, newMessage) => {
-        if (newMessage.author.bot && newMessage.author.id === KARUTA_BOT_ID){
-            let commandHandler = new KarutaCommand(newMessage);
-            let execute = CommandRoutes[commandHandler.command];
-            if (execute){
-                await execute(newMessage, "update");
+        if (newMessage.author.bot && newMessage.author.id === KARUTA_BOT_ID) {
+            if (process.env.NODE_ENV === "development" && message.channel.id === "968338765305221140") {
+                let commandHandler = new KarutaCommand(newMessage);
+                let execute = CommandRoutes[commandHandler.command];
+                if (execute) {
+                    await execute(newMessage, "update");
+                }
+            } else if (process.env.NODE_ENV === "production") {
+                let commandHandler = new KarutaCommand(newMessage);
+                let execute = CommandRoutes[commandHandler.command];
+                if (execute) {
+                    await execute(newMessage, "update");
+                }
             }
         }
     }
@@ -56,10 +64,18 @@ class DiscordConsumer extends BaseConsumer {
     onMessageCreate = async (message) => {
 
         if (message.author.bot && message.author.id === KARUTA_BOT_ID) {
-            let commandHandler = new KarutaCommand(message);
-            let execute = CommandRoutes[commandHandler.command];
-            if (execute){
-                await execute(message, "create");
+            if (process.env.NODE_ENV === "development" && message.channel.id === "968338765305221140") {
+                let commandHandler = new KarutaCommand(message);
+                let execute = CommandRoutes[commandHandler.command];
+                if (execute) {
+                    await execute(message, "create");
+                }
+            } else if (process.env.NODE_ENV === "production") {
+                let commandHandler = new KarutaCommand(message);
+                let execute = CommandRoutes[commandHandler.command];
+                if (execute) {
+                    await execute(message, "create");
+                }
             }
         }
     }

@@ -1,9 +1,9 @@
-import {Group, Input, Stack, Table, Text, TextInput} from "@mantine/core";
-import {ISheetRow} from "../../../containers/Sheet.stats/Sheet.stats.types";
-import {Check, CircleCheck, CircleX, Copy, X} from "tabler-icons-react";
-import {showNotification} from "@mantine/notifications";
-import {CopyToClipboard} from "react-copy-to-clipboard";
-import {useState} from "react";
+import {Group, Pagination, Stack, TextInput} from "@mantine/core";
+import {EWorkerStat, ISheetRow} from "../../../containers/Sheet.stats/Sheet.stats.types";
+import React, {useState} from "react";
+import TableMem from "../../common/Table.mem/Table.mem";
+import {WorkerStatsTableConfig} from "./Worker.stats.table.config";
+import WorkerStatsTableFilters from "./Worker.stats.table.filters";
 
 interface Props {
     cards: ISheetRow[]
@@ -11,79 +11,114 @@ interface Props {
 
 function WorkerStatsTable({cards}: Props) {
     const [search, setSearch] = useState("");
+    const [sorted, setSorted] = useState([]);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(15);
+    const [sortBy, setSortBy] = useState<string>("workerEffort");
+    const [reversed, setReversed] = useState(false);
+    const [filters, setFilters] = useState();
 
-    const rows = cards.filter(card => card.character.toLowerCase().includes(search.toLowerCase())).map((card) => {
-        const {
-            code,
-            character,
-            edition,
-            number,
-            workerDropper,
-            workerGrabber,
-            dropQuality,
-            workerPurity,
-            workerQuickness,
-            workerToughness,
-        } = card;
+    function onSort(curSortBy: string) {
+        if (sortBy === curSortBy) {
+            if (!reversed) {
+                setReversed(true);
+            } else {
+                setSortBy("workerEffort");
+                setReversed(false);
+            }
+        } else {
+            setSortBy(curSortBy);
+            setReversed(false);
+        }
+    }
 
-        return (
-            <tr key={card.code}>
-                <td>{character}</td>
-                <td style={{fontFamily: "IBM Plex Mono, monospace"}}>#{number}</td>
-                <td style={{fontFamily: "IBM Plex Mono, monospace"}}>
-                    <Group>
-                        <Text style={{fontFamily: "IBM Plex Mono, monospace", fontSize: 14}}>
-                            {code}
-                        </Text>
-                        <CopyToClipboard text={code}>
-                            <Copy className='copy-button' size={16} onClick={() =>
-                                showNotification({
-                                    title: 'Copied!',
-                                    message: `The card code ${code} has been copied to your clipboard!`,
-                                    color: "green"
-                                })}/>
-                        </CopyToClipboard>
-                    </Group>
-                </td>
-                <td style={{fontFamily: "IBM Plex Mono, monospace"}}>{edition}</td>
-                <td>{dropQuality}</td>
-                <td>{workerPurity}</td>
-                <td>{workerQuickness}</td>
-                <td>{workerToughness}</td>
-                <td>
-                    <Group>
-                        {workerGrabber === "S" ? <Check color="green" size={20}/> : <X color="red" size={20}/>}
-                    </Group>
-                </td>
-                <td>
-                    <Group>
-                        {workerDropper === "S" ? <Check color="green" size={20}/> : <X color="red" size={20}/>}
-                    </Group>
-                </td>
-            </tr>
-        )
-    });
+    function onChangePage(page: number) {
+        setPage(page)
+    }
+
+    function serializeFilters(filters: any) {
+        let ret: any = {};
+        Object.keys(filters).forEach(key => {
+            if (filters[key] === "false" || filters[key] === "true") {
+                ret[key] = filters[key] === "true" ? "S" : "F";
+            } else if (filters[key] === "none" || filters[key] === "") {
+                ret[key] = undefined;
+            } else {
+                ret[key] = filters[key];
+            }
+        })
+        return ret;
+    }
+
+    function getFilteredCards() {
+        return cards.filter(card => {
+            if (filters) {
+                let shouldReturn = true;
+                Object.keys(filters).forEach(key => {
+                    let value = filters[key];
+                    if (value !== undefined) {
+                        if (key === "character") {
+                            if (!card.character.toLowerCase().includes((value as string).toLowerCase())) {
+                                shouldReturn = false;
+                            }
+                        } else if ((card as any)[key] !== value) {
+                            shouldReturn = false;
+                        }
+                    }
+                })
+                return shouldReturn;
+            } else {
+                return true;
+            }
+        })
+    }
+
+    function getCards() {
+
+        let filtered = getFilteredCards();
+
+        let index = page - 1;
+        let start = index * pageSize;
+        let end = start + pageSize;
+        let workerStatsByIndex = Object.values(EWorkerStat).reverse();
+        let sorted = filtered.sort((a: any, b: any) => {
+            if (sortBy) {
+                if (sortBy.includes("worker") && sortBy !== "workerEffort") {
+                    return workerStatsByIndex.indexOf(b[sortBy]) - workerStatsByIndex.indexOf(a[sortBy])
+                } else if (sortBy === "character") {
+                    return b[sortBy].localeCompare(a[sortBy]);
+                }
+                return b[sortBy] - a[sortBy];
+            } else {
+                return 0;
+            }
+        })
+        if (reversed) {
+            sorted = sorted.reverse();
+        }
+        return sorted.slice(start, end);
+    }
+
+    function getTotalPages() {
+        let modulo = getFilteredCards().length % pageSize;
+        return (getFilteredCards().length - modulo) / pageSize;
+    }
+
+    function onSubmitFilters(values: any) {
+        setFilters(serializeFilters(values));
+    }
 
     return (
         <Stack>
-            <TextInput placeholder="Character Name" onChange={(e:any) => setSearch(e.target.value)}/>
-            <Table striped>
-                <thead>
-                <tr>
-                    <th>Character</th>
-                    <th>Print</th>
-                    <th>Code</th>
-                    <th>Edition</th>
-                    <th>Drop</th>
-                    <th>P</th>
-                    <th>Q</th>
-                    <th>T</th>
-                    <th>G</th>
-                    <th>D</th>
-                </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </Table>
+            <Group>
+                <WorkerStatsTableFilters onSubmit={onSubmitFilters}/>
+            </Group>
+            <TableMem
+                onSort={onSort} sortKey={sortBy} data={getCards()}
+                config={WorkerStatsTableConfig()} reversed={reversed}
+            />
+            {getFilteredCards().length > pageSize &&
+            <Pagination total={getTotalPages()} initialPage={1} onChange={onChangePage}/>}
         </Stack>
     )
 }

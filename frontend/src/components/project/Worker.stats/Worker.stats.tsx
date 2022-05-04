@@ -1,6 +1,7 @@
 import {EWorkerStat, ISheetRow} from "../../../containers/Sheet.stats/Sheet.stats.types";
 import {Grid} from "@mantine/core";
 import {StatsSegments} from "../../common/Stats.segments/Stats.segments";
+import {ArrowBigRightLines, Bandage, BoxMultiple1, Download, SquaresFilled, Stars, Upload} from "tabler-icons-react";
 
 interface Props {
     cards: ISheetRow[]
@@ -8,7 +9,16 @@ interface Props {
 
 function WorkerStats({cards}: Props) {
 
-    let colorWheel = ["blue", "lime", "orange", "cyan", "red", "teal"]
+    let colorWheel = ["blue", "indigo", "violet", "grape", "pink", "red"]
+    let iconMap:any = {
+        workerDropper: Download,
+        workerGrabber: Upload,
+        workerPurity: Stars,
+        workerQuickness: ArrowBigRightLines,
+        workerStyle: SquaresFilled,
+        workerToughness: Bandage,
+        workerVanity: BoxMultiple1
+    }
 
     function getWorkerStatistics() {
         let workerStats: any = {}
@@ -47,14 +57,14 @@ function WorkerStats({cards}: Props) {
                     data.push({
                         label: workerStat,
                         count: stats[stat][workerStat],
-                        part: Math.round(stats[stat][workerStat] / stats[stat]["total"] * 100),
-                        color: colorWheel[index]
+                        part: Math.round((stats[stat][workerStat] / stats[stat]["total"]) * 10000) / 100,
+                        color: colorWheel[index],
                     })
                 }
             })
             return (
                 <Grid.Col key={stat} md={6} xl={3}>
-                    <StatsSegments total={stat.slice(6, stat.length)} data={data}/>
+                    <StatsSegments total={stat.slice(6, stat.length)} data={data} icon={iconMap[stat]}/>
                 </Grid.Col>
             )
         })

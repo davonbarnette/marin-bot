@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStyles, Progress, Box, Text, Group, Paper, SimpleGrid} from '@mantine/core';
-import {ArrowUpRight, DeviceAnalytics} from 'tabler-icons-react';
+import {DeviceAnalytics} from 'tabler-icons-react';
 
 const useStyles = createStyles((theme) => ({
     progressLabel: {
@@ -32,6 +32,7 @@ const useStyles = createStyles((theme) => ({
 
 interface StatsSegmentsProps {
     total: string;
+    icon: any,
     data: {
         label: string;
         count: string;
@@ -40,7 +41,7 @@ interface StatsSegmentsProps {
     }[];
 }
 
-export function StatsSegments({total, data}: StatsSegmentsProps) {
+export function StatsSegments({total, data, icon:Icon}: StatsSegmentsProps) {
     const {classes} = useStyles();
 
     const segments = data.map((segment) => ({
@@ -71,11 +72,11 @@ export function StatsSegments({total, data}: StatsSegmentsProps) {
                         {total}
                     </Text>
                 </Group>
-                <DeviceAnalytics size={20} className={classes.icon}/>
+                <Icon size={20} className={classes.icon}/>
             </Group>
 
             <Text color="dimmed" size="sm">
-                Page views compared to previous month
+                Card worker stats for {total}
             </Text>
 
             <Progress

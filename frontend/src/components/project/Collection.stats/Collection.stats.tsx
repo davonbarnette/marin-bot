@@ -1,6 +1,7 @@
 import {StatsGrid} from "../../common/Stats.grid/Stats.grid";
 import {ISheetRow} from "../../../containers/Sheet.stats/Sheet.stats.types";
 import {Contrast2, Flame, Frame, PlayCard} from "tabler-icons-react";
+import NumberUtils from "../../../utils/number.utils";
 
 interface Props {
     cards: ISheetRow[]
@@ -20,10 +21,10 @@ function CollectionStats({ cards }:Props){
             stats.frames += card.frame !== "" ? 1 : 0;
         })
         return [
-            {title: "Cards", Icon: PlayCard, value: cards.length},
-            {title: "Burn Value", Icon: Flame, value: stats.burnValue},
-            {title: "Morphed", Icon: Contrast2, value: stats.morphs},
-            {title: "Framed", Icon: Frame, value: stats.frames},
+            {title: "Cards", Icon: PlayCard, value: NumberUtils.numberWithCommas(cards.length)},
+            {title: "Burn Value", Icon: Flame, value: NumberUtils.numberWithCommas(stats.burnValue)},
+            {title: "Morphed", Icon: Contrast2, value: NumberUtils.numberWithCommas(stats.morphs)},
+            {title: "Framed", Icon: Frame, value: NumberUtils.numberWithCommas(stats.frames)},
         ] as any;
     }
 
