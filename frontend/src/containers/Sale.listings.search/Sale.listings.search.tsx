@@ -1,7 +1,7 @@
 
 import LoaderDefault from "../../components/common/Loader.default/Loader.default";
 import {Search} from "tabler-icons-react";
-import {Box, Divider, Pagination} from "@mantine/core";
+import {Box, Divider, Group, Pagination} from "@mantine/core";
 import {useState} from "react";
 import {useSaleListings} from "../../api/Sale.listings/Sale.listings.hooks";
 import SaleListingsFiltersManager from "../../components/project/Sale.listings.filters/Sale.listings.filters.manager";
@@ -74,7 +74,9 @@ function SaleListingsSearch() {
                             </>
                         }
                     />
-                    <SaleListingsView saleListings={saleListings.data}/>
+                    <Group style={{width:"100%"}} position="center" align="center">
+                        <SaleListingsView saleListings={saleListings.data}/>
+                    </Group>
                     <Pagination page={page}
                                 style={{marginTop: 12}}
                                 onChange={onPagination}

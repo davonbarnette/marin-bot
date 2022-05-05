@@ -10,9 +10,9 @@ interface Props {
 function SaleListingsView({saleListings}: Props) {
 
     return (
-        <Grid columns={24}>
+        <Grid style={{maxWidth:1300}}>
             {saleListings.map(saleListing => (
-                <Grid.Col lg={12} xl={8}>
+                <Grid.Col xs={12} sm={6} lg={4}>
                     <SaleListingsCard saleListing={saleListing} print={saleListing.attributes.print.data}/>
                 </Grid.Col>
             ))}

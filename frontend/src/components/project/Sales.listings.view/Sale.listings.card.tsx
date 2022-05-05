@@ -2,9 +2,9 @@ import {CURRENCY_TO_EMOTE, ISaleListing} from "../../../api/Sale.listings/Sale.l
 import {IStrapiEntity} from "../../../api/Base/Base.types";
 import {IPrint} from "../../../api/Prints/Prints.types";
 import "./styles.scss";
-import {Box, Divider, Text, Code, Badge, Stack, Group} from "@mantine/core";
+import {Box, Divider, Text, Code, Badge, Stack, Group, Button} from "@mantine/core";
 import NumberUtils from "../../../utils/number.utils";
-import {Copy} from "tabler-icons-react";
+import {Copy, Wallet} from "tabler-icons-react";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {showNotification} from "@mantine/notifications";
 
@@ -36,68 +36,85 @@ function SaleListingsCard({saleListing, print}: Props) {
     }
 
     return (
-        <Box className="sale-listing-card" sx={(theme) => ({
+        <Stack className="sale-listing-card" sx={(theme) => ({
             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
             textAlign: 'center',
-            padding: theme.spacing.xs,
             borderRadius: theme.radius.md,
             position: 'relative',
         })}>
             <div className='image'>
                 <img alt="card-image" src={imageUrl}/>
             </div>
-            <div className="card-details">
-                <div className="header">
-                    <div className="name">
-                        <Text lineClamp={1} color="white">{name}</Text>
-
-                    </div>
-                    <div className="cost">
-                        <Text color="white">{NumberUtils.numberWithCommas(quantity)}</Text>
-                        <img alt={currency} src={CURRENCY_TO_EMOTE[currency]}/>
-                    </div>
-                </div>
-                <Divider my="xs" label={anime} labelPosition="left" style={{width: "100%", margin: "0px 0 9px 0"}}/>
-                <Group align="center" direction="row" position="left" spacing="xs" style={{marginBottom:12}}>
+            <Stack spacing={0} style={{padding: "0 18px"}}>
+                <Group align="center" position="apart">
+                    <Text lineClamp={1} color="white" weight={600}>{name}</Text>
+                </Group>
+                <Group style={{marginBottom:12}}>
+                    <Text color="gray" lineClamp={1} size="sm">
+                        {anime}
+                    </Text>
+                </Group>
+                <Group align="center" direction="row" position="left" spacing="xs" style={{marginBottom: 12}}>
                     <Badge className="print-number" variant="gradient"
                            gradient={getPrintGradient()}>
                         #{printNumber}
                     </Badge>
                     <Badge color="indigo" variant="filled">◈{edition}</Badge>
+                    <Badge color="indigo" variant="filled">SSS</Badge>
                 </Group>
-                <Text className="card-details-text" color="white" size="xs">
-                    <Code>Code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Code> {code}
-                    <CopyToClipboard text={code}>
-                        <Copy className='copy-button' size={16} onClick={() =>
-                            showNotification({
-                                title: 'Copied!',
-                                message: `The card code ${code} has been copied to your clipboard!`,
-                                color: "green"
-                            })}/>
-                    </CopyToClipboard>
-                </Text>
-                <Text className="card-details-text" color="white" size="xs">
-                    <Code>Condition</Code> {condition}
-                </Text>
-                <Text className="card-details-text" color="white" size="xs">
-                    <Code>Dropped&nbsp;&nbsp;</Code> {dropCondition}
-                </Text>
-                <Text className="card-details-text" color="white" size="xs">
-                    <Code>Grabbed&nbsp;&nbsp;</Code> {grabbedAfter} seconds
-                </Text>
-                <Text className="card-details-text" color="white" size="xs">
-                    <Code>Lister&nbsp;&nbsp;&nbsp;</Code> {listingDiscordUserId}
-                    <CopyToClipboard text={listingDiscordUserId}>
-                        <Copy className='copy-button' size={16} onClick={() =>
-                            showNotification({
-                                title: 'Copied!',
-                                message: <span>The Lister <b>{listingDiscordUserId}</b> has been copied to your clipboard!</span>,
-                                color: "green"
-                            })}/>
-                    </CopyToClipboard>
-                </Text>
-            </div>
-        </Box>
+                <Group position="apart">
+                    <Group className="cost" spacing={0}>
+                        <Text color="white" size="xl">{NumberUtils.numberWithCommas(quantity)}</Text>
+                        <img alt={currency} src={CURRENCY_TO_EMOTE[currency]}/>
+                    </Group>
+                    <Button leftIcon={<Wallet/>} size="xs">
+                        Buy
+                    </Button>
+                </Group>
+            </Stack>
+            <Group style={{borderTop: "1px solid #222222"}} position="apart" sx={theme => ({
+                padding: theme.spacing.md
+            })}>
+                <Stack spacing={3} align="left">
+                    <Text align="left" color="gray" size="xs">
+                        Lister
+                    </Text>
+                    <Group spacing={3}>
+                        <Code>{listingDiscordUserId}</Code>
+                        <CopyToClipboard text={listingDiscordUserId}>
+                            <Copy className='copy-button' color="white" size={18} onClick={() =>
+                                showNotification({
+                                    title: 'Copied!',
+                                    message: <span>The Lister <b>{listingDiscordUserId}</b> has been copied to your clipboard!</span>,
+                                    color: "green"
+                                })}/>
+                        </CopyToClipboard>
+                    </Group>
+                    <Text color="white" size="xs">
+
+
+                    </Text>
+                </Stack>
+                <Stack spacing={3} align="right">
+                    <Text align="right" color="gray" size="xs">
+                        Card Code
+                    </Text>
+                    <Text color="white" size="xs">
+                        <Group spacing={3}>
+                            <Code>{code}</Code>
+                            <CopyToClipboard text={code}>
+                                <Copy className='copy-button' color="white" size={18} onClick={() =>
+                                    showNotification({
+                                        title: 'Copied!',
+                                        message: <span>Code <b>{code}</b> has been copied to your clipboard!</span>,
+                                        color: "green"
+                                    })}/>
+                            </CopyToClipboard>
+                        </Group>
+                    </Text>
+                </Stack>
+            </Group>
+        </Stack>
     )
 }
 
